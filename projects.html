@@ -62,12 +62,13 @@
     .navlinks a:hover{ color: var(--gold); }
 
     .topPad{
-      position:fixed;
-      left:0; right:0;
-      top:54px;
-      z-index:9;
-      padding: 14px 22px 10px;
-      pointer-events:none;
+      position:relative;
+      left:auto;
+      right:auto;
+      top:auto;
+      z-index:3;
+      padding: 92px 22px 10px;
+      pointer-events:auto;
     }
 
     .pageTitle{
@@ -105,7 +106,7 @@
     .slide{
       flex: 0 0 100%;
       scroll-snap-align: start;
-      padding: 120px 22px 22px;   /* was 98px — gives more room under header/title */
+      padding: 22px 22px 22px;   /* was 98px — gives more room under header/title */
       display:flex;
       align-items:flex-start;     /* was center — prevents upward push into header */
       justify-content:center;
