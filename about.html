@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | Joshua Ellison</title>
+
+  <style>
+    :root{
+      --bg: #050608;
+      --text: #eaf0ff;
+      --muted: rgba(234,240,255,.72);
+      --purple: #0026FF;
+      --gold: #ffd700;
+      --line: rgba(255,255,255,.12);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ---------- RIBBON NAV ---------- */
+    .ribbon{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 32px;
+      border-bottom:1px solid var(--line);
+      background:rgba(5,6,8,.85);
+      backdrop-filter: blur(8px);
+      z-index:1000;
+    }
+
+    .ribbon a{
+      color:var(--muted);
+      text-decoration:none;
+      margin-right:24px;
+      font-size:14px;
+      letter-spacing:.08em;
+    }
+
+    .ribbon a:hover{
+      color:var(--gold);
+    }
+
+    .left-links a:first-child{
+      color:var(--gold);
+      font-weight:600;
+    }
+
+    /* ---------- CONTENT ---------- */
+    .content{
+      max-width:900px;
+      margin:140px auto;
+      padding:0 24px;
+    }
+
+    h1{
+      font-size:3rem;
+      margin-bottom:16px;
+    }
+
+    p{
+      line-height:1.7;
+      color:var(--muted);
+      margin-bottom:20px;
+      font-size:1.05rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="ribbon">
+    <div class="left-links">
+      <a href="about.html">ABOUT</a>
+    </div>
+    <div class="right-links">
+      <a href="index.html">HOME</a>
+      <a href="projects.html">PROJECTS</a>
+      <a href="resume.html">RESUME</a>
+      <a href="contact.html">CONTACT</a>
+    </div>
+  </nav>
+
+  <main class="content">
+    <h1>About Me</h1>
+
+    <p>
+      I am a Mechanical Engineering student at Kennesaw State University with a
+      strong interest in engineering design, research, and real-world problem solving.
+    </p>
+
+    <p>
+      My academic experience includes coursework in mechanics, physics, and
+      engineering analysis, along with hands-on research involving nanomaterials
+      and computational modeling. I enjoy applying theory to practical challenges
+      and continuously expanding my technical skill set.
+    </p>
+
+    <p>
+      Outside of coursework, I am focused on professional development through
+      research, engineering projects, and building a strong technical portfolio.
+    </p>
+  </main>
+
+</body>
+</html>
