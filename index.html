@@ -11,7 +11,6 @@
       --text: #eaf0ff;
       --muted: rgba(234,240,255,.72);
 
-      /* Accent colors (green/yellow like the example) */
       --lime: #b9ff3b;
       --yellow: #f6ff6b;
 
@@ -28,51 +27,61 @@
       overflow-x:hidden;
     }
 
-    /* Top-right nav (optional, clean) */
-    .nav{
+    /* ---------- RIBBON NAV ---------- */
+    .ribbon{
       position:fixed;
-      top:18px;
-      right:22px;
+      top:0; left:0; right:0;
+      height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 22px;
+      z-index:10;
+
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand{
+      font-weight:700;
+      letter-spacing:.02em;
+      color: rgba(234,240,255,.9);
+    }
+    .navlinks{
       display:flex;
       gap:18px;
-      z-index:5;
-      font-size:13px;
-      letter-spacing:.08em;
+      font-size:12px;
+      letter-spacing:.12em;
       text-transform:uppercase;
-      opacity:.9;
     }
-    .nav a{
-      color: rgba(234,240,255,.75);
+    .navlinks a{
+      color: rgba(234,240,255,.7);
       text-decoration:none;
     }
-    .nav a:hover{ color: var(--yellow); }
+    .navlinks a:hover{ color: var(--yellow); }
 
-    /* Layout */
+    /* ---------- LAYOUT ---------- */
     .wrap{
       position:relative;
       min-height:100vh;
       display:flex;
       align-items:center;
-      padding: 72px 22px;
+      padding: 80px 22px 22px; /* top padding accounts for ribbon */
       max-width: 1100px;
       margin: 0 auto;
-      z-index:2;
+      z-index:3;
     }
 
-    .hero{
-      max-width: 560px;
-    }
+    .hero{ max-width: 560px; }
 
     .name{
       margin:0;
       font-size: clamp(44px, 6vw, 78px);
       line-height: 0.95;
       font-weight: 800;
-
-      /* subtle glow */
       text-shadow:
-        0 0 18px rgba(185,255,59,.22),
-        0 0 42px rgba(246,255,107,.12);
+        0 0 22px rgba(185,255,59,.22),
+        0 0 48px rgba(246,255,107,.16);
     }
 
     .tag{
@@ -85,15 +94,13 @@
 
     .desc{
       margin: 0;
-      max-width: 50ch;
+      max-width: 52ch;
       color: var(--muted);
       line-height: 1.7;
       font-size: 15.5px;
     }
 
-    .ctaRow{
-      margin-top: 18px;
-    }
+    .ctaRow{ margin-top: 18px; }
 
     .cta{
       display:inline-flex;
@@ -101,20 +108,17 @@
       justify-content:center;
       padding: 12px 16px;
       border-radius: 10px;
-      border: 1px solid rgba(246,255,107,.45);
-      background: rgba(246,255,107,.90);
+      border: 1px solid rgba(246,255,107,.55);
+      background: rgba(246,255,107,.92);
       color: #111;
       font-weight: 800;
       text-decoration:none;
-      box-shadow: 0 10px 40px rgba(185,255,59,.10);
+      box-shadow: 0 14px 60px rgba(185,255,59,.18);
       transition: transform .15s ease, filter .15s ease;
     }
-    .cta:hover{
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-    }
+    .cta:hover{ transform: translateY(-1px); filter: brightness(1.05); }
 
-    /* --- Animated Blob Background --- */
+    /* ---------- BLOB BACKGROUND (more visible) ---------- */
     .blob{
       position:fixed;
       inset:0;
@@ -123,94 +127,103 @@
       overflow:hidden;
     }
 
-    /* Two moving gradient “blobs” layered */
+    /* Soft base glow so blob always shows */
     .blob::before,
     .blob::after{
       content:"";
       position:absolute;
-      width: 52vmax;
-      height: 52vmax;
-      left: 58%;
-      top: 18%;
-      transform: translate(-50%, -50%);
       border-radius: 999px;
       filter: blur(70px);
-      opacity: 0.55;
+      opacity: 0.75;           /* increased */
       will-change: transform;
-      mix-blend-mode: screen; /* makes it glow-ish on dark */
     }
 
+    /* Yellow-ish blob */
     .blob::before{
+      width: 60vmax;
+      height: 60vmax;
+      left: 65%;
+      top: 35%;
       background:
-        radial-gradient(circle at 30% 30%, rgba(246,255,107,.85), rgba(246,255,107,0) 55%),
-        radial-gradient(circle at 70% 65%, rgba(185,255,59,.80), rgba(185,255,59,0) 55%);
+        radial-gradient(circle at 35% 35%, rgba(246,255,107,.95), rgba(246,255,107,0) 60%),
+        radial-gradient(circle at 70% 65%, rgba(185,255,59,.55), rgba(185,255,59,0) 62%);
       animation: drift1 10s ease-in-out infinite alternate;
     }
 
+    /* Green blob */
     .blob::after{
-      width: 46vmax;
-      height: 46vmax;
-      left: 72%;
-      top: 55%;
-      opacity: 0.45;
+      width: 52vmax;
+      height: 52vmax;
+      left: 75%;
+      top: 60%;
+      opacity: 0.65;
       background:
-        radial-gradient(circle at 45% 40%, rgba(185,255,59,.85), rgba(185,255,59,0) 58%),
-        radial-gradient(circle at 70% 70%, rgba(246,255,107,.55), rgba(246,255,107,0) 60%);
+        radial-gradient(circle at 40% 40%, rgba(185,255,59,.95), rgba(185,255,59,0) 62%),
+        radial-gradient(circle at 70% 70%, rgba(246,255,107,.45), rgba(246,255,107,0) 65%);
       animation: drift2 12s ease-in-out infinite alternate;
     }
 
     @keyframes drift1{
-      0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-      50%  { transform: translate(-56%, -46%) scale(1.08) rotate(10deg); }
+      0%   { transform: translate(-50%, -50%) scale(1.00) rotate(0deg); }
+      50%  { transform: translate(-56%, -46%) scale(1.10) rotate(10deg); }
       100% { transform: translate(-48%, -54%) scale(0.98) rotate(-8deg); }
     }
-
     @keyframes drift2{
-      0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-      50%  { transform: translate(-44%, -58%) scale(1.10) rotate(-12deg); }
+      0%   { transform: translate(-50%, -50%) scale(1.00) rotate(0deg); }
+      50%  { transform: translate(-44%, -58%) scale(1.12) rotate(-12deg); }
       100% { transform: translate(-54%, -46%) scale(0.96) rotate(9deg); }
     }
 
-    /* Subtle vignette so text stays readable */
+    /* Vignette — reduced darkness so blob is visible */
     .vignette{
       position:fixed;
       inset:0;
       z-index:1;
       pointer-events:none;
       background:
-        radial-gradient(1200px 700px at 20% 50%, rgba(0,0,0,.35), rgba(0,0,0,.85) 70%),
-        radial-gradient(900px 600px at 80% 40%, rgba(0,0,0,.15), rgba(0,0,0,.75) 65%);
+        radial-gradient(1100px 650px at 20% 50%, rgba(0,0,0,.20), rgba(0,0,0,.72) 72%),
+        radial-gradient(900px 600px at 80% 40%, rgba(0,0,0,.08), rgba(0,0,0,.62) 70%);
     }
 
-    /* Mobile tweaks */
+    /* Extra contrast behind text (subtle) */
+    .textShade{
+      position:absolute;
+      inset:-80px -40px -80px -40px;
+      background: radial-gradient(600px 420px at 20% 50%, rgba(0,0,0,.55), rgba(0,0,0,0) 70%);
+      z-index:-1;
+    }
+
     @media (max-width: 720px){
-      .nav{ left: 16px; right:auto; gap:12px; }
-      .blob::before, .blob::after{ left: 70%; }
-      .hero{ padding-right: 0; }
+      .ribbon{ padding: 0 14px; }
+      .navlinks{ gap:12px; font-size:11px; }
+      .blob::before{ left: 60%; top: 40%; }
+      .blob::after{ left: 70%; top: 65%; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Background layers -->
   <div class="blob"></div>
   <div class="vignette"></div>
 
-  <!-- Top nav (keep if you want) -->
-  <div class="nav">
-    <a href="projects.html">Projects</a>
-    <a href="resume.html">Resume</a>
-    <a href="contact.html">Contact</a>
-  </div>
+  <header class="ribbon">
+    <div class="brand">Joshua Ellison</div>
+    <nav class="navlinks">
+      <a href="projects.html">Projects</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-  <!-- Left hero content -->
   <main class="wrap">
     <section class="hero">
-      <h1 class="name">Joshua</h1>
+      <div class="textShade"></div>
+
+      <h1 class="name">Joshua Ellison</h1>
       <div class="tag">Mechanical Engineering Student</div>
       <p class="desc">
-        Mechanical Engineering student at Kennesaw State University focused on hands-on problem solving,
-        simulation, CAD, and research. I build practical engineering projects and document results clearly.
+        I am a motivated engineering student with a strong analytical mindset and a hands-on approach to problem solving. 
+        I am experienced in applying engineering principles to technical projects, collaborating effectively in team environments, and continuously developing my skills through coursework, research, and practical applications.
       </p>
 
       <div class="ctaRow">
