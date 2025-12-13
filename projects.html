@@ -6,49 +6,365 @@
   <title>Projects | Joshua Ellison</title>
 
   <style>
+    :root{
+      --bg: #050608;
+      --text: #eaf0ff;
+      --muted: rgba(234,240,255,.72);
+      --purple: #0026FF;
+      --gold: #ffd700;
+      --line: rgba(255,255,255,.12);
+      --card: rgba(0,0,0,.32);
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:#050608;
-      color:#eaf0ff;
+      background: var(--bg);
+      color: var(--text);
+      overflow:hidden; /* important: we handle scrolling inside the scroller */
     }
 
-    .wrap{
-      min-height:100vh;
-      padding:120px 22px;
-      max-width:1100px;
-      margin:0 auto;
+    /* ---------- RIBBON NAV ---------- */
+    .ribbon{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 22px;
+      z-index:10;
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
     }
 
-    h1{
-      font-size:48px;
-      margin-bottom:10px;
+    .brand{
+      font-weight:700;
+      letter-spacing:.02em;
+      color: rgba(234,240,255,.9);
     }
 
-    p{
-      color:rgba(234,240,255,.72);
-      max-width:60ch;
-      line-height:1.7;
+    .navlinks{
+      display:flex;
+      gap:18px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
 
-    a{
-      color:#ffd700;
+    .navlinks a{
+      color: rgba(234,240,255,.7);
       text-decoration:none;
+    }
+    .navlinks a:hover{ color: var(--gold); }
+
+    /* ---------- BACKGROUND (same vibe as homepage) ---------- */
+    .blob{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .blob::before,
+    .blob::after{
+      content:"";
+      position:absolute;
+      border-radius: 999px;
+      filter: blur(80px) saturate(1.25);
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+
+    .blob::before{
+      width: 62vmax;
+      height: 62vmax;
+      left: 64%;
+      top: 36%;
+      background:
+        radial-gradient(circle at 34% 34%, rgba(255,215,0,.65), transparent 62%),
+        radial-gradient(circle at 72% 64%, rgba(0,38,255,.55), transparent 64%);
+      animation: drift1 10s ease-in-out infinite alternate;
+    }
+
+    .blob::after{
+      width: 54vmax;
+      height: 54vmax;
+      left: 76%;
+      top: 60%;
+      background:
+        radial-gradient(circle at 40% 42%, rgba(255,215,0,.45), transparent 64%),
+        radial-gradient(circle at 66% 70%, rgba(0,38,255,.45), transparent 66%);
+      animation: drift2 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift1{
+      0% { transform: translate(-50%,-50%) scale(1); }
+      100% { transform: translate(-48%,-54%) scale(1.05); }
+    }
+    @keyframes drift2{
+      0% { transform: translate(-50%,-50%) scale(1); }
+      100% { transform: translate(-54%,-46%) scale(1.08); }
+    }
+
+    .vignette{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:
+        radial-gradient(1100px 650px at 20% 50%, rgba(0,0,0,.2), rgba(0,0,0,.72) 72%);
+    }
+
+    /* ---------- PAGE HEADER ---------- */
+    .topPad{
+      position:fixed;
+      left:0; right:0;
+      top:54px;
+      z-index:9;
+      padding: 14px 22px 10px;
+      pointer-events:none;
+    }
+
+    .pageTitle{
+      max-width:1100px;
+      margin: 0 auto;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      pointer-events:auto;
+    }
+
+    .pageTitle h1{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: rgba(234,240,255,.88);
+    }
+
+    .hint{
+      font-size: 12px;
+      color: rgba(234,240,255,.6);
+    }
+
+    /* ---------- HORIZONTAL SCROLLER ---------- */
+    .scroller{
+      position:relative;
+      z-index:3;
+      height:100vh;
+      padding-top: 54px; /* ribbon */
+      padding-bottom: 12px;
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* nicer scrollbar (optional) */
+    .scroller::-webkit-scrollbar{ height: 10px; }
+    .scroller::-webkit-scrollbar-track{ background: rgba(255,255,255,.06); }
+    .scroller::-webkit-scrollbar-thumb{ background: rgba(255,215,0,.30); border-radius: 999px; }
+
+    .slide{
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      padding: 98px 22px 22px; /* room for title area */
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .card{
+      width:min(1100px, 100%);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,.45);
+    }
+
+    .media{
+      width:100%;
+      height: min(58vh, 520px);
+      background: rgba(255,255,255,.06);
+      position:relative;
+    }
+
+    .media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .content{
+      padding: 18px 18px 20px;
+      display:grid;
+      gap:10px;
+    }
+
+    .titleRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .projTitle{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:.02em;
+    }
+
+    .tags{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .chip{
+      font-size: 11px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(234,240,255,.75);
+      background: rgba(0,0,0,.22);
+    }
+
+    .desc{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15.5px;
+      max-width: 95ch;
+    }
+
+    /* ---------- NAV ARROWS (optional but nice) ---------- */
+    .arrows{
+      position:fixed;
+      right: 22px;
+      bottom: 18px;
+      z-index:12;
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.35);
+      color: rgba(234,240,255,.9);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn:hover{ border-color: rgba(255,215,0,.45); color: var(--gold); }
+
+    @media (max-width:720px){
+      .ribbon{ padding:0 14px; }
+      .navlinks{ gap:12px; font-size:11px; }
+      .media{ height: 44vh; }
+      .projTitle{ font-size: 20px; }
+      .arrows{ right: 14px; }
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
-    <h1>Projects</h1>
-    <p>
-      This page will showcase my engineering, research, and hands-on technical projects.
-      Detailed write-ups, images, and results will be added soon.
-    </p>
+  <div class="blob"></div>
+  <div class="vignette"></div>
 
-    <p>
-      <a href="index.html">← Back to Home</a>
-    </p>
-  </main>
+  <header class="ribbon">
+    <div class="brand">Joshua Ellison</div>
+    <nav class="navlinks">
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="topPad">
+    <div class="pageTitle">
+      <h1>Projects</h1>
+      <div class="hint">Scroll sideways • Trackpad / Shift+Wheel • Arrows</div>
+    </div>
+  </div>
+
+  <main class="scroller" id="scroller">
+    <!-- SLIDE 1 -->
+    <section class="slide">
+      <article class="card">
+        <div class="media">
+          <!-- Put your image in your repo and update the src -->
+          <img src="images/project1.jpg" alt="BNNT-hBN junction simulation visualization" />
+        </div>
+        <div class="content">
+          <div class="titleRow">
+            <h2 class="projTitle">BNNT–hBN Junction Thermal Transport Simulation</h2>
+            <div class="tags">
+              <span class="chip">MATLAB</span>
+              <span class="chip">LAMMPS</span>
+              <span class="chip">RNEMD</span>
+              <span class="chip">Nanomaterials</span>
+            </div>
+          </div>
+          <p class="desc">
+            In this research, we investigate the effect of mechanical strain on the thermal transport in interfacial thermal resistance in pillared hexagonal boron nitride sheet structures using molecular dynamics simulations. More specifically, Reverse nonequilibrium molecular dynamics is used together with Tersoff force field. The results show that the interfacial thermal resistance across boron nitride nanotube (BNNT)-hBNNS is minimal when compared to typical interfacial thermal resistances found in traditional materials. Interfacial thermal resistance values become lowered when the pillar heights are longer. This indicates that the thermal transport in pillared hBNNS structures is still ballistic and phonon mode conversion through the junctions is very efficient. When the structure is strained, interfacial thermal resistance increases. This can be attributed to the deformed junctions with stretched interatomic bounds. Although the direction of the phonon transport becomes less radical while being deformed, the altered lattice structure by strain impact the phonon mode conversion across the junction more negatively, resulting in increased interfacial thermal resistance. The largest increase in interfacial thermal resistance was observed for the case with longest interplanar spacing because the longest interplanar spacing allowed for the largest deformation in the pillared hBNNS structure without breaking the junction.
+          </p>
+        </div>
+      </article>
+    </section>
+
+  <!-- Optional arrow controls -->
+  <div class="arrows">
+    <button class="btn" id="prev" aria-label="Previous project">←</button>
+    <button class="btn" id="next" aria-label="Next project">→</button>
+  </div>
+
+  <script>
+    const scroller = document.getElementById("scroller");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+
+    function scrollToSlide(index){
+      const clamped = Math.max(0, Math.min(slides.length - 1, index));
+      slides[clamped].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    }
+
+    function getCurrentIndex(){
+      const left = scroller.scrollLeft;
+      const w = scroller.clientWidth;
+      return Math.round(left / w);
+    }
+
+    document.getElementById("prev").addEventListener("click", () => {
+      scrollToSlide(getCurrentIndex() - 1);
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      scrollToSlide(getCurrentIndex() + 1);
+    });
+
+    // Keyboard support
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "ArrowLeft") scrollToSlide(getCurrentIndex() - 1);
+      if(e.key === "ArrowRight") scrollToSlide(getCurrentIndex() + 1);
+    });
+  </script>
 </body>
 </html>
