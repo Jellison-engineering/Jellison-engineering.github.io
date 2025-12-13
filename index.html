@@ -118,7 +118,7 @@
     }
     .cta:hover{ transform: translateY(-1px); filter: brightness(1.05); }
 
-    /* ---------- BLOB BACKGROUND ---------- */
+    /* ---------- BLOB BACKGROUND (gold-dominant, purple accent) ---------- */
     .blob{
       position:fixed;
       inset:0;
@@ -127,7 +127,6 @@
       overflow:hidden;
     }
 
-    /* This makes the color mix animatable (modern browsers) */
     @property --mix {
       syntax: "<number>";
       inherits: false;
@@ -139,59 +138,61 @@
       content:"";
       position:absolute;
       border-radius: 999px;
-      filter: blur(70px);
+      filter: blur(78px); /* slightly softer */
       will-change: transform;
       mix-blend-mode: screen;
     }
 
-    /* Gold-leading blob that shifts to purple (and back) */
+    /* Blob 1: BIG GOLD with a little purple that breathes */
     .blob::before{
-      width: 60vmax;
-      height: 60vmax;
-      left: 65%;
-      top: 35%;
-      --mix: 0; /* 0 = gold-heavy, 1 = purple-heavy */
+      width: 62vmax;
+      height: 62vmax;
+      left: 64%;
+      top: 36%;
+      --mix: 0; /* 0 = more gold, 1 = more purple */
 
       background:
-        radial-gradient(circle at 35% 35%,
-          rgba(255,215,0, calc(0.15 + (1 - var(--mix)) * 0.80)),
-          rgba(255,215,0, 0) 60%
+        /* gold core stays strong */
+        radial-gradient(circle at 34% 34%,
+          rgba(255,215,0, calc(0.55 + (1 - var(--mix)) * 0.35)),
+          rgba(255,215,0, 0) 62%
         ),
-        radial-gradient(circle at 70% 65%,
-          rgba(0,38,255, calc(0.10 + var(--mix) * 0.75)),
-          rgba(0,38,255, 0) 62%
+        /* purple accent is capped so it never takes over */
+        radial-gradient(circle at 72% 64%,
+          rgba(0,38,255, calc(0.06 + var(--mix) * 0.22)),
+          rgba(0,38,255, 0) 64%
         );
 
-      opacity: 0.80;
+      opacity: 0.85;
 
       animation:
         drift1 10s ease-in-out infinite alternate,
-        mix1 3.5s ease-in-out infinite alternate; /* <-- LOWER = faster color shift */
+        mix1 4.2s ease-in-out infinite alternate;
     }
 
-    /* Purple-leading blob that shifts to gold (and back) */
+    /* Blob 2: SUPPORTING glow—still gold forward */
     .blob::after{
-      width: 52vmax;
-      height: 52vmax;
-      left: 75%;
+      width: 54vmax;
+      height: 54vmax;
+      left: 76%;
       top: 60%;
-      --mix: 1; /* start opposite phase */
+      --mix: 0.25; /* start mostly gold (not purple) */
 
       background:
-        radial-gradient(circle at 40% 40%,
-          rgba(0,38,255, calc(0.15 + var(--mix) * 0.80)),
-          rgba(0,38,255, 0) 62%
+        radial-gradient(circle at 40% 42%,
+          rgba(255,215,0, calc(0.35 + (1 - var(--mix)) * 0.35)),
+          rgba(255,215,0, 0) 64%
         ),
-        radial-gradient(circle at 70% 70%,
-          rgba(255,215,0, calc(0.10 + (1 - var(--mix)) * 0.75)),
-          rgba(255,215,0, 0) 65%
+        radial-gradient(circle at 66% 70%,
+          rgba(0,38,255, calc(0.05 + var(--mix) * 0.20)),
+          rgba(0,38,255, 0) 66%
         );
 
-      opacity: 0.68;
+      opacity: 0.70;
 
       animation:
         drift2 12s ease-in-out infinite alternate,
-        mix2 4.2s ease-in-out infinite alternate; /* <-- LOWER = faster color shift */
+        mix2 5.3s ease-in-out infinite alternate;
     }
 
     /* Movement */
@@ -206,17 +207,17 @@
       100% { transform: translate(-54%, -46%) scale(0.96) rotate(9deg); }
     }
 
-    /* Actual color mixing (this is the real "shift") */
+    /* Gold <-> Purple breathing */
     @keyframes mix1{
-      from { --mix: 0; }
-      to   { --mix: 1; }
+      from { --mix: 0.00; }
+      to   { --mix: 0.60; } /* capped so it never becomes "too blue" */
     }
     @keyframes mix2{
-      from { --mix: 1; }
-      to   { --mix: 0; }
+      from { --mix: 0.10; }
+      to   { --mix: 0.55; } /* capped */
     }
 
-    /* Vignette — reduced darkness so blob is visible */
+    /* Vignette — keeps text readable */
     .vignette{
       position:fixed;
       inset:0;
