@@ -16,102 +16,169 @@
     }
 
     *{ box-sizing:border-box; }
+    html, body{ height:100%; }
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background: var(--bg);
       color: var(--text);
+      overflow-x:hidden;
     }
 
     /* ---------- RIBBON NAV ---------- */
     .ribbon{
       position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:64px;
+      top:0; left:0; right:0;
+      height:54px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:0 32px;
-      border-bottom:1px solid var(--line);
-      background:rgba(5,6,8,.85);
-      backdrop-filter: blur(8px);
-      z-index:1000;
+      padding: 0 22px;
+      z-index:10;
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
     }
 
-    .ribbon a{
-      color:var(--muted);
+    .leftgroup{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .brand{
+      font-weight:700;
+      letter-spacing:.02em;
+      color: rgba(234,240,255,.9);
+    }
+
+    .aboutlink{
+      color: rgba(234,240,255,.75);
       text-decoration:none;
-      margin-right:24px;
-      font-size:14px;
-      letter-spacing:.08em;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
+    .aboutlink:hover{ color: var(--gold); }
 
-    .ribbon a:hover{
-      color:var(--gold);
+    .navlinks{
+      display:flex;
+      gap:18px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
-
-    .left-links a:first-child{
-      color:var(--gold);
-      font-weight:600;
+    .navlinks a{
+      color: rgba(234,240,255,.7);
+      text-decoration:none;
     }
+    .navlinks a:hover{ color: var(--gold); }
 
-    /* ---------- CONTENT ---------- */
-    .content{
-      max-width:900px;
-      margin:140px auto;
-      padding:0 24px;
+    /* ---------- PAGE LAYOUT ---------- */
+    .wrap{
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 110px 22px 60px;
     }
 
     h1{
-      font-size:3rem;
-      margin-bottom:16px;
+      margin:0 0 12px;
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 850;
+      text-shadow:
+        0 0 22px rgba(255,215,0,.18),
+        0 0 48px rgba(0,38,255,.14);
     }
 
-    p{
-      line-height:1.7;
-      color:var(--muted);
-      margin-bottom:20px;
-      font-size:1.05rem;
+    .lead{
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+      max-width: 70ch;
+      margin: 0 0 22px;
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.30);
+      border-radius: 14px;
+      padding: 18px 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .item h3{
+      margin:0 0 6px;
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .item p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14.5px;
+    }
+
+    @media (max-width: 720px){
+      .ribbon{ padding: 0 14px; }
+      .navlinks{ gap:12px; font-size:11px; }
+      .aboutlink{ font-size:11px; }
+      .grid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-
-  <nav class="ribbon">
-    <div class="left-links">
-      <a href="about.html">ABOUT</a>
+  <header class="ribbon">
+    <div class="leftgroup">
+      <a class="aboutlink" href="about.html">About Me</a>
+      <div class="brand">Joshua Ellison</div>
     </div>
-    <div class="right-links">
-      <a href="index.html">HOME</a>
-      <a href="projects.html">PROJECTS</a>
-      <a href="resume.html">RESUME</a>
-      <a href="contact.html">CONTACT</a>
-    </div>
-  </nav>
 
-  <main class="content">
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
     <h1>About Me</h1>
-
-    <p>
-      I am a Mechanical Engineering student at Kennesaw State University with a
-      strong interest in engineering design, research, and real-world problem solving.
+    <p class="lead">
+      I’m a Mechanical Engineering student focused on hands-on problem solving, design, and technical projects.
+      I’m building this portfolio to showcase my work, research, and growth as an engineer.
     </p>
 
-    <p>
-      My academic experience includes coursework in mechanics, physics, and
-      engineering analysis, along with hands-on research involving nanomaterials
-      and computational modeling. I enjoy applying theory to practical challenges
-      and continuously expanding my technical skill set.
-    </p>
-
-    <p>
-      Outside of coursework, I am focused on professional development through
-      research, engineering projects, and building a strong technical portfolio.
-    </p>
+    <div class="card">
+      <div class="grid">
+        <div class="item">
+          <h3>Focus</h3>
+          <p>Mechanical engineering, technical projects, and continuous skill development through coursework and research.</p>
+        </div>
+        <div class="item">
+          <h3>Strengths</h3>
+          <p>Analytical thinking, attention to detail, and translating engineering concepts into real results.</p>
+        </div>
+        <div class="item">
+          <h3>Tools</h3>
+          <p>MATLAB, SolidWorks, and engineering analysis fundamentals (statics / physics / modeling).</p>
+        </div>
+        <div class="item">
+          <h3>What’s next</h3>
+          <p>Adding projects, better visuals, and a more detailed resume section as I build experience.</p>
+        </div>
+      </div>
+    </div>
   </main>
-
 </body>
 </html>
