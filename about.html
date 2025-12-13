@@ -63,63 +63,7 @@
 
     .navlinks a:hover{ color: var(--gold); }
 
-    /* ---------- BLOB BACKGROUND (same vibe as index) ---------- */
-    .blob{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      overflow:hidden;
-    }
-    .blob::before,
-    .blob::after{
-      content:"";
-      position:absolute;
-      border-radius: 999px;
-      filter: blur(85px) saturate(1.45);
-      mix-blend-mode: screen;
-      will-change: transform;
-    }
-    .blob::before{
-      width: 62vmax;
-      height: 62vmax;
-      left: 64%;
-      top: 36%;
-      background:
-        radial-gradient(circle at 34% 34%, rgba(255,215,0,.62), transparent 62%),
-        radial-gradient(circle at 72% 64%, rgba(0,38,255,.55), transparent 64%);
-      opacity: .92;
-      animation: drift1 10s ease-in-out infinite alternate;
-    }
-    .blob::after{
-      width: 54vmax;
-      height: 54vmax;
-      left: 76%;
-      top: 60%;
-      background:
-        radial-gradient(circle at 40% 42%, rgba(255,215,0,.42), transparent 64%),
-        radial-gradient(circle at 66% 70%, rgba(0,38,255,.45), transparent 66%);
-      opacity: .82;
-      animation: drift2 12s ease-in-out infinite alternate;
-    }
-    @keyframes drift1{
-      0% { transform: translate(-50%,-50%) scale(1) rotate(0deg); }
-      100% { transform: translate(-48%,-54%) scale(1.06) rotate(-8deg); }
-    }
-    @keyframes drift2{
-      0% { transform: translate(-50%,-50%) scale(1) rotate(0deg); }
-      100% { transform: translate(-54%,-46%) scale(1.08) rotate(9deg); }
-    }
 
-    .vignette{
-      position:fixed;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      background:
-        radial-gradient(1100px 650px at 20% 50%, rgba(0,0,0,.20), rgba(0,0,0,.74) 72%),
-        radial-gradient(900px 600px at 80% 40%, rgba(0,0,0,.08), rgba(0,0,0,.62) 70%);
-    }
 
     /* ---------- PAGE LAYOUT ---------- */
     .page{
@@ -280,8 +224,6 @@
 
   <main class="page">
     <h1 class="title">About Me</h1>
-    <p class="subtitle">
-      A quick overview of who I am, what I work on, and what I’m building toward — in a clean, visual layout.
     </p>
 
     <section class="aboutGrid">
@@ -310,7 +252,6 @@
           <div class="frame">
             <img src="assets/about-2.jpg" alt="About section image 2">
           </div>
-          <div class="cap">Replace with a project/research screenshot</div>
         </div>
 
         <div class="text">
