@@ -4,116 +4,219 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joshua Ellison | Engineering Portfolio</title>
+
   <style>
     :root{
-      --bg:#0b1220; --card:#101a2e; --text:#eaf0ff; --muted:#9fb0cc; --accent:#6ea8ff; --line:rgba(255,255,255,.12);
+      --bg: #050608;
+      --text: #eaf0ff;
+      --muted: rgba(234,240,255,.72);
+
+      /* Accent colors (green/yellow like the example) */
+      --lime: #b9ff3b;
+      --yellow: #f6ff6b;
+
+      --line: rgba(255,255,255,.12);
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
 
-    .wrap{max-width:980px;margin:0 auto;padding:44px 18px 80px}
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
 
+    /* Top-right nav (optional, clean) */
     .nav{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:14px 16px;border:1px solid var(--line);border-radius:16px;
-      background:rgba(16,26,46,.65);backdrop-filter:blur(10px);
-      position:sticky;top:14px;z-index:10;
+      position:fixed;
+      top:18px;
+      right:22px;
+      display:flex;
+      gap:18px;
+      z-index:5;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      opacity:.9;
     }
-    .brand{font-weight:700}
-    .navlinks{display:flex;gap:14px;font-size:14px}
+    .nav a{
+      color: rgba(234,240,255,.75);
+      text-decoration:none;
+    }
+    .nav a:hover{ color: var(--yellow); }
+
+    /* Layout */
+    .wrap{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding: 72px 22px;
+      max-width: 1100px;
+      margin: 0 auto;
+      z-index:2;
+    }
 
     .hero{
-      margin-top:28px;border:1px solid var(--line);border-radius:20px;
-      background:rgba(16,26,46,.55);padding:22px;
-    }
-    h1{margin:0 0 8px;font-size:40px;line-height:1.05}
-    .subtitle{color:var(--muted);margin:0 0 6px;font-size:16px;line-height:1.6}
-    .meta{color:var(--muted);margin:10px 0 0;font-size:14px}
-
-    .cards{margin-top:18px;display:grid;gap:14px;grid-template-columns:repeat(12,1fr)}
-    .card{
-      grid-column:span 6;border:1px solid var(--line);border-radius:18px;
-      background:rgba(16,26,46,.55);padding:18px;
-    }
-    .card h2{margin:0 0 8px;font-size:18px}
-    .card p{margin:0;color:var(--muted);line-height:1.6;font-size:14.5px}
-
-    .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .pill{
-      display:inline-flex;align-items:center;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.06);
-      color:var(--muted);
-      font-size:12.5px;
+      max-width: 560px;
     }
 
-    @media (max-width:900px){.card{grid-column:span 12} h1{font-size:34px}}
+    .name{
+      margin:0;
+      font-size: clamp(44px, 6vw, 78px);
+      line-height: 0.95;
+      font-weight: 800;
 
-    footer{margin-top:26px;color:var(--muted);font-size:13px}
+      /* subtle glow */
+      text-shadow:
+        0 0 18px rgba(185,255,59,.22),
+        0 0 42px rgba(246,255,107,.12);
+    }
+
+    .tag{
+      margin: 14px 0 10px;
+      font-size: 20px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+
+    .desc{
+      margin: 0;
+      max-width: 50ch;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15.5px;
+    }
+
+    .ctaRow{
+      margin-top: 18px;
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(246,255,107,.45);
+      background: rgba(246,255,107,.90);
+      color: #111;
+      font-weight: 800;
+      text-decoration:none;
+      box-shadow: 0 10px 40px rgba(185,255,59,.10);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .cta:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    /* --- Animated Blob Background --- */
+    .blob{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    /* Two moving gradient “blobs” layered */
+    .blob::before,
+    .blob::after{
+      content:"";
+      position:absolute;
+      width: 52vmax;
+      height: 52vmax;
+      left: 58%;
+      top: 18%;
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.55;
+      will-change: transform;
+      mix-blend-mode: screen; /* makes it glow-ish on dark */
+    }
+
+    .blob::before{
+      background:
+        radial-gradient(circle at 30% 30%, rgba(246,255,107,.85), rgba(246,255,107,0) 55%),
+        radial-gradient(circle at 70% 65%, rgba(185,255,59,.80), rgba(185,255,59,0) 55%);
+      animation: drift1 10s ease-in-out infinite alternate;
+    }
+
+    .blob::after{
+      width: 46vmax;
+      height: 46vmax;
+      left: 72%;
+      top: 55%;
+      opacity: 0.45;
+      background:
+        radial-gradient(circle at 45% 40%, rgba(185,255,59,.85), rgba(185,255,59,0) 58%),
+        radial-gradient(circle at 70% 70%, rgba(246,255,107,.55), rgba(246,255,107,0) 60%);
+      animation: drift2 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift1{
+      0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      50%  { transform: translate(-56%, -46%) scale(1.08) rotate(10deg); }
+      100% { transform: translate(-48%, -54%) scale(0.98) rotate(-8deg); }
+    }
+
+    @keyframes drift2{
+      0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      50%  { transform: translate(-44%, -58%) scale(1.10) rotate(-12deg); }
+      100% { transform: translate(-54%, -46%) scale(0.96) rotate(9deg); }
+    }
+
+    /* Subtle vignette so text stays readable */
+    .vignette{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 700px at 20% 50%, rgba(0,0,0,.35), rgba(0,0,0,.85) 70%),
+        radial-gradient(900px 600px at 80% 40%, rgba(0,0,0,.15), rgba(0,0,0,.75) 65%);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 720px){
+      .nav{ left: 16px; right:auto; gap:12px; }
+      .blob::before, .blob::after{ left: 70%; }
+      .hero{ padding-right: 0; }
+    }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="nav">
-      <div class="brand">Joshua Ellison</div>
-      <div class="navlinks">
-        <a href="projects.html">Projects</a>
-        <a href="resume.html">Resume</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
+  <!-- Background layers -->
+  <div class="blob"></div>
+  <div class="vignette"></div>
 
-    <section class="hero">
-      <h1>Mechanical Engineering Student</h1>
-      <p class="subtitle">
-I am a motivated engineering student with a strong analytical mindset and a hands-on approach to problem solving. I am experienced in applying engineering principles to technical projects, collaborating effectively in team environments, and continuously developing my skills through coursework, research, and practical applications.
-      </p>
-      <p class="meta">
-        Kennesaw State University • Research + Design Projects • Open to Internships/Co-ops
-      </p>
-    </section>
-
-    <section class="cards">
-      <div class="card">
-        <h2>Projects</h2>
-        <p>
-          Research, simulations, CAD work, and engineering builds with images and concise write-ups.
-        </p>
-        <div class="pillrow">
-          <span class="pill">MATLAB</span>
-          <span class="pill">Simulation</span>
-          <span class="pill">CAD</span>
-          <span class="pill">Research</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Resume</h2>
-        <p>
-          One-page overview of skills, experience, and coursework—plus key highlights for recruiters.
-        </p>
-        <div class="pillrow">
-          <span class="pill">Skills</span>
-          <span class="pill">Experience</span>
-          <span class="pill">Coursework</span>
-          <span class="pill">Highlights</span>
-        </div>
-      </div>
-
-      <div class="card" style="grid-column:span 12">
-        <h2>Contact</h2>
-        <p>
-          Use the Contact page to reach me by email or connect on LinkedIn.
-        </p>
-      </div>
-    </section>
-
-    <footer>© <span id="y"></span> Joshua Ellison • GitHub Pages</footer>
+  <!-- Top nav (keep if you want) -->
+  <div class="nav">
+    <a href="projects.html">Projects</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
   </div>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <!-- Left hero content -->
+  <main class="wrap">
+    <section class="hero">
+      <h1 class="name">Joshua</h1>
+      <div class="tag">Mechanical Engineering Student</div>
+      <p class="desc">
+        Mechanical Engineering student at Kennesaw State University focused on hands-on problem solving,
+        simulation, CAD, and research. I build practical engineering projects and document results clearly.
+      </p>
+
+      <div class="ctaRow">
+        <a class="cta" href="contact.html">Contact Me</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
