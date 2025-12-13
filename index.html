@@ -66,7 +66,7 @@
       min-height:100vh;
       display:flex;
       align-items:center;
-      padding: 80px 22px 22px; /* top padding accounts for ribbon */
+      padding: 80px 22px 22px;
       max-width: 1100px;
       margin: 0 auto;
       z-index:3;
@@ -118,7 +118,7 @@
     }
     .cta:hover{ transform: translateY(-1px); filter: brightness(1.05); }
 
-    /* ---------- BLOB BACKGROUND (gold-dominant, purple accent) ---------- */
+    /* ---------- BLOB BACKGROUND (bright gold + visible blue, same speed) ---------- */
     .blob{
       position:fixed;
       inset:0;
@@ -138,61 +138,67 @@
       content:"";
       position:absolute;
       border-radius: 999px;
-      filter: blur(78px); /* slightly softer */
+      /* brighter glow without changing colors */
+      filter: blur(80px) saturate(1.25);
       will-change: transform;
       mix-blend-mode: screen;
     }
 
-    /* Blob 1: BIG GOLD with a little purple that breathes */
+    /* Main blob: gold core + blue rim (blue now stronger, gold brighter) */
     .blob::before{
       width: 62vmax;
       height: 62vmax;
       left: 64%;
       top: 36%;
-      --mix: 0; /* 0 = more gold, 1 = more purple */
+      --mix: 0;
 
       background:
-        /* gold core stays strong */
+        /* GOLD: brighter and stays present */
         radial-gradient(circle at 34% 34%,
-          rgba(255,215,0, calc(0.55 + (1 - var(--mix)) * 0.35)),
+          rgba(255,215,0, calc(0.55 + (1 - var(--mix)) * 0.40)),
           rgba(255,215,0, 0) 62%
         ),
-        /* purple accent is capped so it never takes over */
+        /* BLUE: boosted so it’s visible, but capped */
         radial-gradient(circle at 72% 64%,
-          rgba(0,38,255, calc(0.06 + var(--mix) * 0.22)),
+          rgba(0,38,255, calc(0.10 + var(--mix) * 0.38)),
           rgba(0,38,255, 0) 64%
         );
 
-      opacity: 0.85;
+      opacity: 0.88;
+
+      /* extra glow makes gold feel brighter */
+      filter: blur(82px) saturate(1.35) drop-shadow(0 0 30px rgba(255,215,0,.22));
 
       animation:
         drift1 10s ease-in-out infinite alternate,
-        mix1 4.2s ease-in-out infinite alternate;
+        mix1 4.2s ease-in-out infinite alternate; /* same as last version */
     }
 
-    /* Blob 2: SUPPORTING glow—still gold forward */
+    /* Secondary blob: supports contrast so blue doesn't disappear */
     .blob::after{
       width: 54vmax;
       height: 54vmax;
       left: 76%;
       top: 60%;
-      --mix: 0.25; /* start mostly gold (not purple) */
+      --mix: 0.25;
 
       background:
         radial-gradient(circle at 40% 42%,
-          rgba(255,215,0, calc(0.35 + (1 - var(--mix)) * 0.35)),
+          rgba(255,215,0, calc(0.38 + (1 - var(--mix)) * 0.38)),
           rgba(255,215,0, 0) 64%
         ),
         radial-gradient(circle at 66% 70%,
-          rgba(0,38,255, calc(0.05 + var(--mix) * 0.20)),
+          rgba(0,38,255, calc(0.10 + var(--mix) * 0.34)),
           rgba(0,38,255, 0) 66%
         );
 
-      opacity: 0.70;
+      opacity: 0.74;
+
+      filter: blur(80px) saturate(1.25) drop-shadow(0 0 22px rgba(0,38,255,.18));
 
       animation:
         drift2 12s ease-in-out infinite alternate,
-        mix2 5.3s ease-in-out infinite alternate;
+        mix2 5.3s ease-in-out infinite alternate; /* same as last version */
     }
 
     /* Movement */
@@ -207,14 +213,14 @@
       100% { transform: translate(-54%, -46%) scale(0.96) rotate(9deg); }
     }
 
-    /* Gold <-> Purple breathing */
+    /* Color breathing (kept capped so it doesn’t turn all-blue) */
     @keyframes mix1{
       from { --mix: 0.00; }
-      to   { --mix: 0.60; } /* capped so it never becomes "too blue" */
+      to   { --mix: 0.70; }
     }
     @keyframes mix2{
       from { --mix: 0.10; }
-      to   { --mix: 0.55; } /* capped */
+      to   { --mix: 0.68; }
     }
 
     /* Vignette — keeps text readable */
