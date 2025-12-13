@@ -24,7 +24,7 @@
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background: var(--bg);
       color: var(--text);
-      overflow:hidden;
+      overflow-x:hidden;
     }
 
     .ribbon{
@@ -88,16 +88,19 @@
     .scroller{
       position:relative;
       z-index:3;
-      height:100vh;
+      min-height: calc(100vh - 54px); /* header height */
       padding-top: 54px;
-      padding-bottom: 12px;
+      padding-bottom: 40px;
+
       display:flex;
       overflow-x:auto;
-      overflow-y:hidden;
+      overflow-y:visible;
+
       scroll-snap-type: x mandatory;
       scroll-behavior:smooth;
       -webkit-overflow-scrolling: touch;
     }
+
 
     .slide{
       flex: 0 0 100%;
