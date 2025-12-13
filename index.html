@@ -12,21 +12,46 @@
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
+
     .wrap{max-width:980px;margin:0 auto;padding:44px 18px 80px}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(16,26,46,.65);backdrop-filter:blur(10px);position:sticky;top:14px}
+
+    .nav{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px 16px;border:1px solid var(--line);border-radius:16px;
+      background:rgba(16,26,46,.65);backdrop-filter:blur(10px);
+      position:sticky;top:14px;z-index:10;
+    }
     .brand{font-weight:700}
     .navlinks{display:flex;gap:14px;font-size:14px}
-    .hero{margin-top:28px;border:1px solid var(--line);border-radius:20px;background:rgba(16,26,46,.55);padding:22px}
+
+    .hero{
+      margin-top:28px;border:1px solid var(--line);border-radius:20px;
+      background:rgba(16,26,46,.55);padding:22px;
+    }
     h1{margin:0 0 8px;font-size:40px;line-height:1.05}
-    .subtitle{color:var(--muted);margin:0 0 14px;font-size:16px}
-    .btnrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);font-weight:600;font-size:14px}
-    .btn:hover{text-decoration:none;background:rgba(255,255,255,.10)}
+    .subtitle{color:var(--muted);margin:0 0 6px;font-size:16px;line-height:1.6}
+    .meta{color:var(--muted);margin:10px 0 0;font-size:14px}
+
     .cards{margin-top:18px;display:grid;gap:14px;grid-template-columns:repeat(12,1fr)}
-    .card{grid-column:span 6;border:1px solid var(--line);border-radius:18px;background:rgba(16,26,46,.55);padding:18px}
+    .card{
+      grid-column:span 6;border:1px solid var(--line);border-radius:18px;
+      background:rgba(16,26,46,.55);padding:18px;
+    }
     .card h2{margin:0 0 8px;font-size:18px}
     .card p{margin:0;color:var(--muted);line-height:1.6;font-size:14.5px}
+
+    .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .pill{
+      display:inline-flex;align-items:center;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:12.5px;
+    }
+
     @media (max-width:900px){.card{grid-column:span 12} h1{font-size:34px}}
+
     footer{margin-top:26px;color:var(--muted);font-size:13px}
   </style>
 </head>
@@ -44,38 +69,44 @@
     <section class="hero">
       <h1>Mechanical Engineering Student</h1>
       <p class="subtitle">
-        I am a motivated engineering student with a strong analytical mindset and a hands-on approach to problem solving. I am experienced in applying engineering principles to technical projects, collaborating effectively in team environments, and continuously developing my skills through coursework, research, and practical applications.
+I am a motivated engineering student with a strong analytical mindset and a hands-on approach to problem solving. I am experienced in applying engineering principles to technical projects, collaborating effectively in team environments, and continuously developing my skills through coursework, research, and practical applications.
       </p>
-
-      <div class="btnrow">
-        <a class="btn" href="projects.html">View Projects</a>
-        <a class="btn" href="resume.pdf">Download Resume (PDF)</a>
-        <a class="btn" href="https://www.linkedin.com/in/YOUR-LINKEDIN">LinkedIn</a>
-      </div>
+      <p class="meta">
+        Kennesaw State University • Research + Design Projects • Open to Internships/Co-ops
+      </p>
     </section>
 
     <section class="cards">
       <div class="card">
         <h2>Projects</h2>
-        <p>Research, simulations, CAD work, and engineering builds with images and short explanations.</p>
-        <div class="btnrow" style="margin-top:12px">
-          <a class="btn" href="projects.html">Go to Projects</a>
+        <p>
+          Research, simulations, CAD work, and engineering builds with images and concise write-ups.
+        </p>
+        <div class="pillrow">
+          <span class="pill">MATLAB</span>
+          <span class="pill">Simulation</span>
+          <span class="pill">CAD</span>
+          <span class="pill">Research</span>
         </div>
       </div>
 
       <div class="card">
         <h2>Resume</h2>
-        <p>One-page overview of my skills, experience, and coursework. PDF + quick highlights.</p>
-        <div class="btnrow" style="margin-top:12px">
-          <a class="btn" href="resume.html">Go to Resume</a>
+        <p>
+          One-page overview of skills, experience, and coursework—plus key highlights for recruiters.
+        </p>
+        <div class="pillrow">
+          <span class="pill">Skills</span>
+          <span class="pill">Experience</span>
+          <span class="pill">Coursework</span>
+          <span class="pill">Highlights</span>
         </div>
       </div>
 
       <div class="card" style="grid-column:span 12">
         <h2>Contact</h2>
         <p>
-          Email: <a href="mailto:youremail@email.com">youremail@email.com</a><br/>
-          LinkedIn: <a href="https://www.linkedin.com/in/YOUR-LINKEDIN">/in/YOUR-LINKEDIN</a>
+          Use the Contact page to reach me by email or connect on LinkedIn.
         </p>
       </div>
     </section>
