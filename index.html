@@ -153,25 +153,29 @@
       --mix: 0;
 
       background:
-        /* GOLD: brighter and stays present */
+        /* GOLD — brighter */
         radial-gradient(circle at 34% 34%,
-          rgba(255,215,0, calc(0.55 + (1 - var(--mix)) * 0.40)),
+          rgba(255,215,0, calc(0.60 + (1 - var(--mix)) * 0.45)),
           rgba(255,215,0, 0) 62%
         ),
-        /* BLUE: boosted so it’s visible, but capped */
+        /* BLUE — SIGNIFICANTLY brighter */
         radial-gradient(circle at 72% 64%,
-          rgba(0,38,255, calc(0.10 + var(--mix) * 0.38)),
+          rgba(0,38,255, calc(0.20 + var(--mix) * 0.60)),
           rgba(0,38,255, 0) 64%
         );
 
-      opacity: 0.88;
+      opacity: 0.92;
 
-      /* extra glow makes gold feel brighter */
-      filter: blur(82px) saturate(1.35) drop-shadow(0 0 30px rgba(255,215,0,.22));
+      /* Stronger glow for BOTH colors */
+      filter:
+        blur(85px)
+        saturate(1.55)
+        drop-shadow(0 0 38px rgba(255,215,0,.30))
+        drop-shadow(0 0 42px rgba(0,38,255,.35));
 
       animation:
         drift1 10s ease-in-out infinite alternate,
-        mix1 4.2s ease-in-out infinite alternate; /* same as last version */
+        mix1 4.2s ease-in-out infinite alternate;
     }
 
     /* Secondary blob: supports contrast so blue doesn't disappear */
@@ -180,25 +184,30 @@
       height: 54vmax;
       left: 76%;
       top: 60%;
-      --mix: 0.25;
+      --mix: 0.30;
 
       background:
+        /* GOLD */
         radial-gradient(circle at 40% 42%,
-          rgba(255,215,0, calc(0.38 + (1 - var(--mix)) * 0.38)),
+          rgba(255,215,0, calc(0.42 + (1 - var(--mix)) * 0.40)),
           rgba(255,215,0, 0) 64%
         ),
+        /* BLUE — brighter than before */
         radial-gradient(circle at 66% 70%,
-          rgba(0,38,255, calc(0.10 + var(--mix) * 0.34)),
+          rgba(0,38,255, calc(0.18 + var(--mix) * 0.55)),
           rgba(0,38,255, 0) 66%
         );
 
-      opacity: 0.74;
+      opacity: 0.82;
 
-      filter: blur(80px) saturate(1.25) drop-shadow(0 0 22px rgba(0,38,255,.18));
+      filter:
+        blur(82px)
+        saturate(1.45)
+        drop-shadow(0 0 30px rgba(0,38,255,.30));
 
       animation:
         drift2 12s ease-in-out infinite alternate,
-        mix2 5.3s ease-in-out infinite alternate; /* same as last version */
+        mix2 5.3s ease-in-out infinite alternate;
     }
 
     /* Movement */
