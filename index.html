@@ -60,6 +60,25 @@
     }
     .navlinks a:hover{ color: var(--gold); }
 
+    .leftgroup{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .aboutlink{
+      color: rgba(234,240,255,.75);
+      text-decoration:none;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .aboutlink:hover{
+      color: var(--gold);
+    }
+
+
     /* ---------- LAYOUT ---------- */
     .wrap{
       position:relative;
@@ -265,13 +284,18 @@
   <div class="vignette"></div>
 
   <header class="ribbon">
-    <div class="brand">Joshua Ellison</div>
+    <div class="leftgroup">
+      <a class="aboutlink" href="about.html">About Me</a>
+      <div class="brand">Joshua Ellison</div>
+    </div>
+
     <nav class="navlinks">
       <a href="projects.html">Projects</a>
       <a href="resume.html">Resume</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
+
 
   <main class="wrap">
     <section class="hero">
