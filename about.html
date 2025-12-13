@@ -63,8 +63,6 @@
 
     .navlinks a:hover{ color: var(--gold); }
 
-
-
     /* ---------- PAGE LAYOUT ---------- */
     .page{
       position:relative;
@@ -84,15 +82,7 @@
         0 0 44px rgba(0,38,255,.14);
     }
 
-    .subtitle{
-      margin: 0 0 26px;
-      max-width: 70ch;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 15.5px;
-    }
-
-    /* ---------- THREE ABOUT SECTIONS (like your reference) ---------- */
+    /* ---------- THREE ABOUT SECTIONS ---------- */
     .aboutGrid{
       display:flex;
       flex-direction:column;
@@ -117,19 +107,6 @@
 
     .panel .text{
       padding: 10px 10px;
-    }
-
-    .kicker{
-      display:inline-block;
-      font-size: 12px;
-      letter-spacing:.16em;
-      text-transform: uppercase;
-      color: rgba(234,240,255,.78);
-      border: 1px solid rgba(255,215,0,.22);
-      background: rgba(255,215,0,.08);
-      padding: 7px 10px;
-      border-radius: 999px;
-      margin-bottom: 10px;
     }
 
     h2{
@@ -170,7 +147,6 @@
         radial-gradient(500px 260px at 20% 20%, rgba(255,215,0,.22), transparent 60%),
         radial-gradient(520px 280px at 80% 75%, rgba(0,38,255,.20), transparent 62%);
       opacity:.9;
-      filter: blur(0px);
     }
 
     .frame img{
@@ -180,15 +156,6 @@
       object-fit: cover;
       opacity: .95;
       transform: scale(1.02);
-    }
-
-    /* Small caption under images (optional) */
-    .cap{
-      margin-top: 10px;
-      font-size: 12px;
-      letter-spacing:.12em;
-      text-transform: uppercase;
-      color: rgba(234,240,255,.62);
     }
 
     @media (max-width: 880px){
@@ -209,12 +176,10 @@
 </head>
 
 <body>
-  <div class="blob"></div>
-  <div class="vignette"></div>
-
   <header class="ribbon">
     <div class="brand">Joshua Ellison</div>
     <nav class="navlinks">
+      <a href="index.html">Home</a>
       <a href="about.html">About Me</a>
       <a href="projects.html">Projects</a>
       <a href="resume.html">Resume</a>
@@ -224,11 +189,9 @@
 
   <main class="page">
     <h1 class="title">About Me</h1>
-    </p>
 
     <section class="aboutGrid">
 
-      <!-- SECTION 1: text left, image right -->
       <article class="panel">
         <div class="text">
           <h2>Education</h2>
@@ -238,45 +201,36 @@
           </p>
         </div>
 
-        <div>
-          <div class="frame">
-            <!-- Replace src with your own image path -->
-            <img src="assets/about-1.jpg" alt="About section image 1">
-          </div>
+        <div class="frame">
+          <img src="assets/about-1.jpg" alt="Education image">
         </div>
       </article>
 
-      <!-- SECTION 2: image left, text right -->
       <article class="panel reverse">
-        <div>
-          <div class="frame">
-            <img src="assets/about-2.jpg" alt="About section image 2">
-          </div>
+        <div class="frame">
+          <img src="assets/about-2.jpg" alt="Passions image">
         </div>
 
         <div class="text">
           <h2>Passions</h2>
           <p class="body">
-            I am passionate about engineering design and automotive engines, with a strong interest in combining research-driven analysis with hands-on, practical applications. 
+            I am passionate about engineering design and automotive engines, with a strong interest in combining research-driven analysis with hands-on, practical applications.
             I am motivated by the challenge of solving complex problems and developing innovative technologies that have real-world impact, with the goal of using engineering to help change the world.
           </p>
         </div>
       </article>
 
-      <!-- SECTION 3: text left, image right -->
       <article class="panel">
         <div class="text">
           <h2>Goals</h2>
           <p class="body">
-            My goal is to grow as an engineer by deepening my expertise in design, automotive systems, and research-driven problem solving. 
+            My goal is to grow as an engineer by deepening my expertise in design, automotive systems, and research-driven problem solving.
             I aim to contribute to innovative engineering solutions that bridge theory and practice, ultimately working on technologies that create meaningful, real-world impact.
           </p>
         </div>
 
-        <div>
-          <div class="frame">
-            <img src="assets/about-3.jpg" alt="About section image 3">
-          </div>
+        <div class="frame">
+          <img src="assets/about-3.jpg" alt="Goals image">
         </div>
       </article>
 
