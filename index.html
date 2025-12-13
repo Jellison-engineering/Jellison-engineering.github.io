@@ -125,6 +125,23 @@
       transform: translateY(-1px);
       filter: brightness(1.05);
     }
+    
+    .ctaRow{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .cta.secondary{
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(255,215,0,.55);
+      box-shadow: none;
+    }
+
+    .cta.secondary:hover{
+      background: rgba(255,215,0,.08);
+    }
 
     /* ---------- BACKGROUND ---------- */
     .blob{
@@ -227,7 +244,8 @@
       </p>
 
       <div class="ctaRow">
-        <a class="cta" href="contact.html">Contact Me</a>
+        <a class="cta" href="projects.html">View Projects</a>
+        <a class="cta secondary" href="contact.html">Contact Me</a>
       </div>
     </section>
   </main>
