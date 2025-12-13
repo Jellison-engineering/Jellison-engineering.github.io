@@ -11,6 +11,7 @@
       --text: #eaf0ff;
       --muted: rgba(234,240,255,.72);
 
+      /* Your colors (unchanged) */
       --purple: #0026FF;
       --gold: #ffd700;
 
@@ -89,7 +90,7 @@
       font-size: 20px;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: var(--purple);
+      color: var(--gold);
     }
 
     .desc{
@@ -118,7 +119,7 @@
     }
     .cta:hover{ transform: translateY(-1px); filter: brightness(1.05); }
 
-    /* ---------- BLOB BACKGROUND (more visible) ---------- */
+    /* ---------- BLOB BACKGROUND (now includes a purple<->gold color cycle) ---------- */
     .blob{
       position:fixed;
       inset:0;
@@ -127,18 +128,18 @@
       overflow:hidden;
     }
 
-    /* Soft base glow so blob always shows */
     .blob::before,
     .blob::after{
       content:"";
       position:absolute;
       border-radius: 999px;
       filter: blur(70px);
-      opacity: 0.75;           /* increased */
-      will-change: transform;
+      opacity: 0.78;
+      will-change: transform, opacity, filter;
+      mix-blend-mode: screen; /* helps glow on dark background */
     }
 
-    /* Gold blob */
+    /* Gold-forward blob layer */
     .blob::before{
       width: 60vmax;
       height: 60vmax;
@@ -146,23 +147,28 @@
       top: 35%;
       background:
         radial-gradient(circle at 35% 35%, rgba(255,215,0,.95), rgba(255,215,0,0) 60%),
-        radial-gradient(circle at 70% 65%, rgba(0,38,255,.55), rgba(0,38,255,0) 62%);
-      animation: drift1 10s ease-in-out infinite alternate;
+        radial-gradient(circle at 70% 65%, rgba(0,38,255,.60), rgba(0,38,255,0) 62%);
+      animation:
+        drift1 10s ease-in-out infinite alternate,
+        colorPulse1 4.8s ease-in-out infinite alternate; /* <-- lower = faster blue<->gold */
     }
 
-    /* Purple blob */
+    /* Purple-forward blob layer */
     .blob::after{
       width: 52vmax;
       height: 52vmax;
       left: 75%;
       top: 60%;
-      opacity: 0.65;
+      opacity: 0.68;
       background:
         radial-gradient(circle at 40% 40%, rgba(0,38,255,.95), rgba(0,38,255,0) 62%),
-        radial-gradient(circle at 70% 70%, rgba(255,215,0,.45), rgba(255,215,0,0) 65%);
-      animation: drift2 12s ease-in-out infinite alternate;
+        radial-gradient(circle at 70% 70%, rgba(255,215,0,.55), rgba(255,215,0,0) 65%);
+      animation:
+        drift2 12s ease-in-out infinite alternate,
+        colorPulse2 6s ease-in-out infinite alternate; /* <-- lower = faster blue<->gold */
     }
 
+    /* Movement */
     @keyframes drift1{
       0%   { transform: translate(-50%, -50%) scale(1.00) rotate(0deg); }
       50%  { transform: translate(-56%, -46%) scale(1.10) rotate(10deg); }
@@ -174,7 +180,17 @@
       100% { transform: translate(-54%, -46%) scale(0.96) rotate(9deg); }
     }
 
-    /* Vignette — reduced darkness so blob is visible */
+    /* Color cycle (purple <-> gold) using your exact colors */
+    @keyframes colorPulse1{
+      0%   { filter: blur(70px) saturate(1.05); opacity: 0.70; }
+      100% { filter: blur(70px) saturate(1.35); opacity: 0.88; }
+    }
+    @keyframes colorPulse2{
+      0%   { filter: blur(70px) saturate(1.35); opacity: 0.86; }
+      100% { filter: blur(70px) saturate(1.05); opacity: 0.66; }
+    }
+
+    /* Vignette — keeps text readable */
     .vignette{
       position:fixed;
       inset:0;
