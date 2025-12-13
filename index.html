@@ -11,7 +11,6 @@
       --text: #eaf0ff;
       --muted: rgba(234,240,255,.72);
 
-      /* Your colors (unchanged) */
       --purple: #0026FF;
       --gold: #ffd700;
 
@@ -119,7 +118,7 @@
     }
     .cta:hover{ transform: translateY(-1px); filter: brightness(1.05); }
 
-    /* ---------- BLOB BACKGROUND (now includes a purple<->gold color cycle) ---------- */
+    /* ---------- BLOB BACKGROUND ---------- */
     .blob{
       position:fixed;
       inset:0;
@@ -128,44 +127,71 @@
       overflow:hidden;
     }
 
+    /* This makes the color mix animatable (modern browsers) */
+    @property --mix {
+      syntax: "<number>";
+      inherits: false;
+      initial-value: 0;
+    }
+
     .blob::before,
     .blob::after{
       content:"";
       position:absolute;
       border-radius: 999px;
       filter: blur(70px);
-      opacity: 0.78;
-      will-change: transform, opacity, filter;
-      mix-blend-mode: screen; /* helps glow on dark background */
+      will-change: transform;
+      mix-blend-mode: screen;
     }
 
-    /* Gold-forward blob layer */
+    /* Gold-leading blob that shifts to purple (and back) */
     .blob::before{
       width: 60vmax;
       height: 60vmax;
       left: 65%;
       top: 35%;
+      --mix: 0; /* 0 = gold-heavy, 1 = purple-heavy */
+
       background:
-        radial-gradient(circle at 35% 35%, rgba(255,215,0,.95), rgba(255,215,0,0) 60%),
-        radial-gradient(circle at 70% 65%, rgba(0,38,255,.60), rgba(0,38,255,0) 62%);
+        radial-gradient(circle at 35% 35%,
+          rgba(255,215,0, calc(0.15 + (1 - var(--mix)) * 0.80)),
+          rgba(255,215,0, 0) 60%
+        ),
+        radial-gradient(circle at 70% 65%,
+          rgba(0,38,255, calc(0.10 + var(--mix) * 0.75)),
+          rgba(0,38,255, 0) 62%
+        );
+
+      opacity: 0.80;
+
       animation:
         drift1 10s ease-in-out infinite alternate,
-        colorPulse1 4.8s ease-in-out infinite alternate; /* <-- lower = faster blue<->gold */
+        mix1 3.5s ease-in-out infinite alternate; /* <-- LOWER = faster color shift */
     }
 
-    /* Purple-forward blob layer */
+    /* Purple-leading blob that shifts to gold (and back) */
     .blob::after{
       width: 52vmax;
       height: 52vmax;
       left: 75%;
       top: 60%;
-      opacity: 0.68;
+      --mix: 1; /* start opposite phase */
+
       background:
-        radial-gradient(circle at 40% 40%, rgba(0,38,255,.95), rgba(0,38,255,0) 62%),
-        radial-gradient(circle at 70% 70%, rgba(255,215,0,.55), rgba(255,215,0,0) 65%);
+        radial-gradient(circle at 40% 40%,
+          rgba(0,38,255, calc(0.15 + var(--mix) * 0.80)),
+          rgba(0,38,255, 0) 62%
+        ),
+        radial-gradient(circle at 70% 70%,
+          rgba(255,215,0, calc(0.10 + (1 - var(--mix)) * 0.75)),
+          rgba(255,215,0, 0) 65%
+        );
+
+      opacity: 0.68;
+
       animation:
         drift2 12s ease-in-out infinite alternate,
-        colorPulse2 6s ease-in-out infinite alternate; /* <-- lower = faster blue<->gold */
+        mix2 4.2s ease-in-out infinite alternate; /* <-- LOWER = faster color shift */
     }
 
     /* Movement */
@@ -180,17 +206,17 @@
       100% { transform: translate(-54%, -46%) scale(0.96) rotate(9deg); }
     }
 
-    /* Color cycle (purple <-> gold) using your exact colors */
-    @keyframes colorPulse1{
-      0%   { filter: blur(70px) saturate(1.05); opacity: 0.70; }
-      100% { filter: blur(70px) saturate(1.35); opacity: 0.88; }
+    /* Actual color mixing (this is the real "shift") */
+    @keyframes mix1{
+      from { --mix: 0; }
+      to   { --mix: 1; }
     }
-    @keyframes colorPulse2{
-      0%   { filter: blur(70px) saturate(1.35); opacity: 0.86; }
-      100% { filter: blur(70px) saturate(1.05); opacity: 0.66; }
+    @keyframes mix2{
+      from { --mix: 1; }
+      to   { --mix: 0; }
     }
 
-    /* Vignette — keeps text readable */
+    /* Vignette — reduced darkness so blob is visible */
     .vignette{
       position:fixed;
       inset:0;
