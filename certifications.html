@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certifications | Joshua Ellison</title>
+
+  <style>
+    :root{
+      --bg: #050608;
+      --text: #eaf0ff;
+      --muted: rgba(234,240,255,.72);
+
+      --purple: #0026FF;
+      --gold: #ffd700;
+
+      --line: rgba(255,255,255,.12);
+      --card: rgba(0,0,0,.34);
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+
+    /* ---------- RIBBON NAV ---------- */
+    .ribbon{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter: blur(10px);
+      background: rgba(5,6,8,.55);
+      border-bottom: 1px solid var(--line);
+      z-index:10;
+    }
+    .nav{
+      width:min(1100px, calc(100% - 32px));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--purple), var(--gold));
+      box-shadow: 0 0 18px rgba(0,38,255,.55);
+    }
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .tabs a{
+      text-decoration:none;
+      color: var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition: .18s ease;
+      font-size:14px;
+    }
+    .tabs a:hover{
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .tabs a.active{
+      color: var(--text);
+      border-color: rgba(255,215,0,.35);
+      background: rgba(255,215,0,.08);
+    }
+
+    /* ---------- PAGE LAYOUT ---------- */
+    main{
+      width:min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 92px 0 44px; /* top padding clears fixed ribbon */
+    }
+
+    .header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0;
+      font-size: 34px;
+      letter-spacing:.2px;
+      text-shadow: 0 10px 24px rgba(0,0,0,.45);
+    }
+    .sub{
+      margin:8px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height:1.45;
+      font-size: 15px;
+    }
+
+    /* ---------- CERT LIST ---------- */
+    .panel{
+      border:1px solid var(--line);
+      background: var(--card);
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+
+    .cert-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+
+    .cert{
+      display:grid;
+      grid-template-columns: 1fr 92px;
+      gap:16px;
+      align-items:center;
+      padding:16px 16px;
+      border-top:1px solid var(--line);
+    }
+    .cert:first-child{ border-top:0; }
+
+    .cert:hover{
+      background: rgba(255,255,255,.03);
+    }
+
+    .cert-title{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
+    }
+
+    .cert-title a{
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 700;
+      letter-spacing:.15px;
+      font-size: 16px;
+      width: fit-content;
+      border-bottom: 1px solid transparent;
+      transition: .18s ease;
+    }
+    .cert-title a:hover{
+      color: var(--gold);
+      border-bottom-color: rgba(255,215,0,.55);
+    }
+
+    .meta{
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      white-space:nowrap;
+    }
+
+    .thumb{
+      width:92px;
+      height:92px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* small screens */
+    @media (max-width: 560px){
+      h1{ font-size: 28px; }
+      .cert{
+        grid-template-columns: 1fr 74px;
+      }
+      .thumb{
+        width:74px;
+        height:74px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ribbon Nav -->
+  <div class="ribbon">
+    <div class="nav">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Joshua Ellison</span>
+      </div>
+
+      <div class="tabs">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="resume.html">Resume</a>
+        <a class="active" href="certifications.html">Certifications</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="header">
+      <div>
+        <h1>Certifications</h1>
+        <p class="sub">
+        </p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <ul class="cert-list">
+
+        <!-- CERT 1 -->
+        <li class="cert">
+          <div class="cert-title">
+            <a href="https://www.coursera.org/account/accomplishments/verify/9MGFOP1TVITR"
+               target="_blank" rel="noopener noreferrer">
+              Introduction to Programming with MATLAB
+            </a>
+
+            <div class="meta">
+              <span class="pill">Platform: Coursera</span>
+              <span class="pill">Issuer: (Vanderbilt University)</span>
+              <span class="pill">Date: (November 28, 2025)</span>
+            </div>
+          </div>
+
+          <div class="thumb" aria-label="Certification image">
+            <!-- Replace with your image, e.g. images/cert1.png -->
+            <img src="assets/Introduction to Programming with MATLAB.pdf" alt="Introduction to Programming with MATLAB preview"
+                 onerror="this.style.display='none'; this.parentElement.textContent='Preview';" />
+          </div>
+        </li>
+
+        <!-- CERT 2 -->
+        <li class="cert">
+          <div class="cert-title">
+            <a href="https://www.coursera.org/account/accomplishments/verify/WOEYX9WYAFML"
+               target="_blank" rel="noopener noreferrer">
+              Prompt Engineering for ChatGPT
+            </a>
+
+            <div class="meta">
+              <span class="pill">Platform: Coursera</span>
+              <span class="pill">Issuer: (Vanderbilt University)</span>
+              <span class="pill">Date: (November 30, 2025)</span>
+            </div>
+          </div>
+
+          <div class="thumb" aria-label="Certification image">
+            <img src="assets/Prompt Engineering for ChatGPT.pdf" alt="Prompt Engineering for ChatGPT preview"
+                 onerror="this.style.display='none'; this.parentElement.textContent='Preview';" />
+          </div>
+        </li>
+
+        <!-- CERT 3 -->
+        <li class="cert">
+          <div class="cert-title">
+            <a href="https://www.coursera.org/account/accomplishments/verify/ZUPMDG58Q1PL"
+               target="_blank" rel="noopener noreferrer">
+              Digitalisation in Aeronautics
+            </a>
+
+            <div class="meta">
+              <span class="pill">Platform: Coursera</span>
+              <span class="pill">Issuer: (Technical University of Munich)</span>
+              <span class="pill">Date: (August 17, 2025)</span>
+            </div>
+          </div>
+
+          <div class="thumb" aria-label="Certification image">
+            <img src="assets/Digitalisation in Aeronautics.pdf" alt="Digitalisation in Aeronautics preview"
+                 onerror="this.style.display='none'; this.parentElement.textContent='Preview';" />
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </main>
+</body>
+</html>
