@@ -61,91 +61,24 @@
       text-decoration:none;
     }
 
-    .navlinks a:hover{
-      color: var(--gold);
-    }
+    .navlinks a:hover{ color: var(--gold); }
 
-    /* optional "active" highlight */
-    .navlinks a.active{
-      color: var(--gold);
-    }
-
-    /* ---------- BACKGROUND (MATCHES INDEX) ---------- */
-    .blob{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      overflow:hidden;
-    }
-
-    .blob::before,
-    .blob::after{
-      content:"";
-      position:absolute;
-      border-radius: 999px;
-      filter: blur(80px) saturate(1.25);
-      mix-blend-mode: screen;
-      will-change: transform;
-    }
-
-    .blob::before{
-      width: 62vmax;
-      height: 62vmax;
-      left: 64%;
-      top: 36%;
-      background:
-        radial-gradient(circle at 34% 34%, rgba(255,215,0,.65), transparent 62%),
-        radial-gradient(circle at 72% 64%, rgba(0,38,255,.55), transparent 64%);
-      animation: drift1 10s ease-in-out infinite alternate;
-    }
-
-    .blob::after{
-      width: 54vmax;
-      height: 54vmax;
-      left: 76%;
-      top: 60%;
-      background:
-        radial-gradient(circle at 40% 42%, rgba(255,215,0,.45), transparent 64%),
-        radial-gradient(circle at 66% 70%, rgba(0,38,255,.45), transparent 66%);
-      animation: drift2 12s ease-in-out infinite alternate;
-    }
-
-    @keyframes drift1{
-      0% { transform: translate(-50%,-50%) scale(1); }
-      100% { transform: translate(-48%,-54%) scale(1.05); }
-    }
-
-    @keyframes drift2{
-      0% { transform: translate(-50%,-50%) scale(1); }
-      100% { transform: translate(-54%,-46%) scale(1.08); }
-    }
-
-    .vignette{
-      position:fixed;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      background:
-        radial-gradient(1100px 650px at 20% 50%, rgba(0,0,0,.2), rgba(0,0,0,.72) 72%);
-    }
+    .navlinks a.active{ color: var(--gold); }
 
     /* ---------- PAGE LAYOUT ---------- */
     main{
       position:relative;
       z-index:3;
       width:min(1100px, calc(100% - 44px));
-      margin: 0 auto;
-      padding: 92px 0 44px; /* clears fixed ribbon */
+      margin:0 auto;
+      padding: 92px 0 44px;
     }
 
-    .header{
-      margin-bottom:18px;
-    }
+    .header{ margin-bottom:18px; }
 
     h1{
       margin:0;
-      font-size: 34px;
+      font-size:34px;
       letter-spacing:.2px;
       text-shadow: 0 10px 24px rgba(0,0,0,.45);
     }
@@ -155,14 +88,14 @@
       color: var(--muted);
       max-width: 70ch;
       line-height:1.6;
-      font-size: 15px;
+      font-size:15px;
     }
 
     /* ---------- CERT LIST ---------- */
     .panel{
       border:1px solid var(--line);
       background: var(--card);
-      border-radius: 18px;
+      border-radius:18px;
       overflow:hidden;
       box-shadow: 0 18px 40px rgba(0,0,0,.35);
     }
@@ -175,17 +108,15 @@
 
     .cert{
       display:grid;
-      grid-template-columns: 1fr 140px;
+      grid-template-columns: 1fr 96px;
       gap:16px;
       align-items:center;
-      padding:16px 16px;
+      padding:16px;
       border-top:1px solid var(--line);
     }
     .cert:first-child{ border-top:0; }
 
-    .cert:hover{
-      background: rgba(255,255,255,.03);
-    }
+    .cert:hover{ background: rgba(255,255,255,.03); }
 
     .cert-title{
       display:flex;
@@ -197,13 +128,14 @@
     .cert-title a{
       color: var(--text);
       text-decoration:none;
-      font-weight: 800;
+      font-weight:800;
       letter-spacing:.15px;
-      font-size: 16px;
+      font-size:16px;
       width: fit-content;
-      border-bottom: 1px solid transparent;
+      border-bottom:1px solid transparent;
       transition: .18s ease;
     }
+
     .cert-title a:hover{
       color: var(--gold);
       border-bottom-color: rgba(255,215,0,.55);
@@ -211,7 +143,7 @@
 
     .meta{
       color: var(--muted);
-      font-size: 13px;
+      font-size:13px;
       line-height:1.35;
       display:flex;
       flex-wrap:wrap;
@@ -221,7 +153,6 @@
     .pill{
       display:inline-flex;
       align-items:center;
-      gap:6px;
       padding:4px 10px;
       border-radius:999px;
       border:1px solid var(--line);
@@ -229,33 +160,31 @@
       white-space:nowrap;
     }
 
-    /* Right-side "preview" */
-    .preview{
+    /* ---------- THUMB PREVIEW (JPG) ---------- */
+    .thumb{
+      width:96px;
+      height:96px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
       display:flex;
-      justify-content:flex-end;
-    }
-
-    .preview a{
-      display:inline-flex;
       align-items:center;
       justify-content:center;
-      width:140px;
-      height:44px;
-      border-radius:12px;
-      border:1px solid rgba(255,215,0,.55);
-      background: rgba(255,215,0,.10);
-      color: var(--gold);
-      font-weight:800;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      font-size:12px;
-      text-decoration:none;
-      transition: transform .15s ease, background .15s ease;
+      justify-self:end;
     }
 
-    .preview a:hover{
-      transform: translateY(-1px);
-      background: rgba(255,215,0,.16);
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition: transform .18s ease, filter .18s ease;
+    }
+
+    .thumb:hover img{
+      transform: scale(1.04);
+      filter: brightness(1.05);
     }
 
     @media (max-width:720px){
@@ -267,8 +196,7 @@
     @media (max-width:560px){
       h1{ font-size:28px; }
       .cert{ grid-template-columns: 1fr; }
-      .preview{ justify-content:flex-start; }
-      .preview a{ width: 100%; }
+      .thumb{ justify-self:start; }
     }
   </style>
 </head>
@@ -277,7 +205,6 @@
   <div class="blob"></div>
   <div class="vignette"></div>
 
-  <!-- Ribbon (matches index) -->
   <header class="ribbon">
     <div class="brand">Joshua Ellison</div>
     <nav class="navlinks">
@@ -294,7 +221,7 @@
     <div class="header">
       <h1>Certifications</h1>
       <p class="sub">
-        Click a certification title to view the official Coursera credential. Use “View PDF” to open my saved copy.
+    
       </p>
     </div>
 
@@ -314,11 +241,9 @@
             </div>
           </div>
 
-          <div class="preview">
-            <a href="assets/Introduction%20to%20Programming%20with%20MATLAB.pdf" target="_blank" rel="noopener noreferrer">
-              View PDF
-            </a>
-          </div>
+          <a class="thumb" href="assets/Introduction to Programming with MATLAB.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open MATLAB certificate image">
+            <img src="assets/Introduction to Programming with MATLAB.jpg" alt="Introduction to Programming with MATLAB certificate preview">
+          </a>
         </li>
 
         <!-- CERT 2 -->
@@ -334,11 +259,9 @@
             </div>
           </div>
 
-          <div class="preview">
-            <a href="assets/Prompt%20Engineering%20for%20ChatGPT.pdf" target="_blank" rel="noopener noreferrer">
-              View PDF
-            </a>
-          </div>
+          <a class="thumb" href="assets/Prompt Engineering for ChatGPT.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open Prompt Engineering certificate image">
+            <img src="assets/Prompt Engineering for ChatGPT.jpg" alt="Prompt Engineering for ChatGPT certificate preview">
+          </a>
         </li>
 
         <!-- CERT 3 -->
@@ -354,11 +277,9 @@
             </div>
           </div>
 
-          <div class="preview">
-            <a href="assets/Digitalisation%20in%20Aeronautics.pdf" target="_blank" rel="noopener noreferrer">
-              View PDF
-            </a>
-          </div>
+          <a class="thumb" href="assets/Digitalisation in Aeronautics.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open Aeronautics certificate image">
+            <img src="assets/Digitalisation in Aeronautics.jpg" alt="Digitalisation in Aeronautics certificate preview">
+          </a>
         </li>
 
       </ul>
